@@ -1,6 +1,8 @@
 const canvas = document.querySelector("#canvas");
 const newCanvas = document.querySelector("#newCanvas");
 
+let rainbow = false;
+
 function drawCanvas(size = 16) {
     while(canvas.lastElementChild) {
         canvas.removeChild(canvas.lastElementChild);
@@ -20,7 +22,16 @@ function drawCanvas(size = 16) {
 
 canvas.addEventListener("mouseover", (event) => {
     if(event.target.getAttribute("class") == "square") {
-        event.target.setAttribute("style", "background-color: black");
+        if(!rainbow) {
+            event.target.setAttribute("style", "background-color: black");
+        } else {
+            let red = Math.floor(Math.random() * 255);
+            let green = Math.floor(Math.random() * 255);
+            let blue = Math.floor(Math.random() * 255);
+            let color = `rgb(${red},${green},${blue})`;
+
+            event.target.setAttribute("style", `background-color: ${color}`);
+        }
     }
 });
 
@@ -32,6 +43,10 @@ document.addEventListener("click", (event) => {
         } else {
             alert("Size must be between 1-100. Please try again.");
         }
+    }
+
+    if(event.target.getAttribute("id") == "rgb") {
+        rainbow = true;
     }
 });
 
