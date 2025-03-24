@@ -2,6 +2,7 @@ const canvas = document.querySelector("#canvas");
 const newCanvas = document.querySelector("#newCanvas");
 
 let rainbow = false;
+let darken = false;
 
 function drawCanvas(size = 16) {
     while(canvas.lastElementChild) {
@@ -22,15 +23,26 @@ function drawCanvas(size = 16) {
 
 canvas.addEventListener("mouseover", (event) => {
     if(event.target.getAttribute("class") == "square") {
-        if(!rainbow) {
-            event.target.setAttribute("style", "background-color: black");
-        } else {
+        if(!rainbow && !darken) {
+            event.target.setAttribute("style", "background-color: black; opacity: 1");
+        }
+        
+        if(rainbow) {
             let red = Math.floor(Math.random() * 255);
             let green = Math.floor(Math.random() * 255);
             let blue = Math.floor(Math.random() * 255);
             let color = `rgb(${red},${green},${blue})`;
 
-            event.target.setAttribute("style", `background-color: ${color}`);
+            event.target.setAttribute("style", `background-color: ${color}; opacity: 1`);
+        }
+
+        if(darken) {
+            let opacity = parseFloat(window.getComputedStyle(event.target).getPropertyValue("opacity"));
+            if(opacity < 1) {
+                opacity += 0.1;
+                console.log(opacity);
+                event.target.setAttribute("style", `background-color: rgb(0, 0, 0); opacity: ${opacity}`);
+            }
         }
     }
 });
@@ -47,6 +59,12 @@ document.addEventListener("click", (event) => {
 
     if(event.target.getAttribute("id") == "rgb") {
         rainbow = !rainbow;
+        darken = false;
+    }
+
+    if(event.target.getAttribute("id") == "darken") {
+        darken = !darken;
+        rainbow = false;
     }
 });
 
