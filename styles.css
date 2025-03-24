@@ -1,0 +1,18 @@
+#canvas {
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    margin: auto;
+}
+
+.column {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.square {
+    border: 1px solid black;
+    flex: 1 0 auto;
+}
