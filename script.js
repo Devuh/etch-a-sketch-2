@@ -46,7 +46,7 @@ document.addEventListener("click", (event) => {
     }
 
     if(event.target.getAttribute("id") == "rgb") {
-        rainbow = true;
+        rainbow = !rainbow;
     }
 });
 
